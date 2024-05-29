@@ -1,0 +1,92 @@
+mixin icon(name,width)
+    if !width
+        span(class="icon svg-image-" + name)
+    else
+        span(class="icon svg-image-" + name style="width:" + width + "px")
+
+
+mixin use(name,width,height)
+    svg(width=width height=height viewBox="0 0 "+ width +" "+ height).icon
+        use(xlink:href="images/sprites/main.stack.svg#image-" + name)
+
+
+mixin picture(name,ext,x2)
+    if !x2
+        picture.picture.object-fit-cover
+            source.object-fit-cover(srcset="images/" + name + ".webp" type="image/webp")
+            img.picture__img.object-fit-cover(src="images/" + name + "." + ext alt="")
+    else
+        picture.picture.object-fit-cover
+            source.object-fit-cover(srcset="images/" + name + ".webp, images/" + name + "@2x.webp 2x" type="image/webp")
+            img.picture__img.object-fit-cover(src="images/" + name + "." + ext srcset="images/" + name + "." + ext + ", images/" + name + "@2x." + ext + " 2x" alt="")
+
+mixin pictureSizeWithoutLazy(name,ext,x2,width,height)
+    if !x2
+        picture.picture.object-fit-cover
+            source.object-fit-cover(srcset="images/" + name + ".webp" type="image/webp")
+            img.picture__img.object-fit-cover(src="images/" + name + "." + ext alt="" width= width height= height)
+    else
+        picture.picture.object-fit-cover
+            source.object-fit-cover(srcset="images/" + name + ".webp, images/" + name + "@2x.webp 2x" type="image/webp")
+            img.picture__img.object-fit-cover(src="images/" + name + "." + ext srcset="images/" + name + "." + ext + ", images/" + name + "@2x." + ext + " 2x" alt="" width= width height= height)
+
+
+mixin pictureNew(name, ext, altText, big_size, mid_size, sm_size, width, height, customClass)
+    -
+        var sourceSrcset = `images/${name}_${sm_size}.webp ${sm_size}w, images/${name}_${mid_size}.webp ${mid_size}w, images/${name}_${big_size}.webp ${big_size}w`
+        var sizes = `(max-width: ${big_size}px) 100vw, ${big_size}px`
+        var imgSrcset = `images/${name}_${sm_size}.${ext} ${sm_size}w, images/${name}_${mid_size}.${ext} ${mid_size}w, images/${name}_${big_size}.${ext} ${big_size}w`
+        var src = `images/${name}_${big_size}.${ext}`
+
+    picture(class = customClass)
+        source(sizes= sizes srcset= sourceSrcset type="image/webp")
+        img(src= src sizes= sizes srcset= imgSrcset alt= altText width= width height= height)
+
+
+mixin imgWithCustomClass(className, imgSizes, imgSrcset, imgSrc, alt, width, height, isLazy)
+    img(
+        class= className
+        sizes= imgSizes
+        srcset= imgSrcset
+        src= "images/" + imgSrc + ".webp"
+        alt=(alt ? alt : false )
+        width=(width ? width : false )
+        height=(height ? height : false )
+        loading=(isLazy ? 'lazy' : false )
+        decoding="async"
+    )
+
+
+mixin breadcrumbs(arr,cur)
+    .b-breadcrumbs
+        .container
+            each v in arr
+                a(href="#").b-breadcrumbs__link=v
+            if cur!=''
+                span.b-breadcrumbs__text=cur
+
+
+
+mixin pagination(amount, current, ellipsis, last, arrows)
+    .pagination
+        if (arrows === true)
+            a(href="#").pagination__prev: span
+
+        ul.pagination__list
+            - for (var index = 1; index <= amount; index++)
+                    if (index === current)
+                        li.pagination__item.current
+                            span= index
+                    else if (index === ellipsis)
+                        li.pagination__item
+                            a(href="#").is-collapsed ...
+                    else
+                        li.pagination__item
+                            a(href="#")= index
+
+            - for (var index = last; index <= last; index++)
+                    li.pagination__item
+                        a(href="#")= index
+
+        if (arrows === true)
+            a(href="#").pagination__next: span

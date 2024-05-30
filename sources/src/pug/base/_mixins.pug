@@ -20,6 +20,16 @@ mixin picture(name,ext,x2)
             source.object-fit-cover(srcset="images/" + name + ".webp, images/" + name + "@2x.webp 2x" type="image/webp")
             img.picture__img.object-fit-cover(src="images/" + name + "." + ext srcset="images/" + name + "." + ext + ", images/" + name + "@2x." + ext + " 2x" alt="")
 
+mixin pictureSize(name,ext,x2,width,height)
+    if !x2
+        picture.picture.object-fit-cover
+            source.object-fit-cover(srcset="images/" + name + ".webp" type="image/webp")
+            img.picture__img.object-fit-cover(src="images/" + name + "." + ext alt="" width= width height= height loading="lazy" decoding="async")
+    else
+        picture.picture.object-fit-cover
+            source.object-fit-cover(srcset="images/" + name + ".webp, images/" + name + "@2x.webp 2x" type="image/webp")
+            img.picture__img.object-fit-cover(src="images/" + name + "." + ext srcset="images/" + name + "." + ext + ", images/" + name + "@2x." + ext + " 2x" alt="" width= width height= height loading="lazy" decoding="async")
+
 mixin pictureSizeWithoutLazy(name,ext,x2,width,height)
     if !x2
         picture.picture.object-fit-cover
@@ -90,3 +100,29 @@ mixin pagination(amount, current, ellipsis, last, arrows)
 
         if (arrows === true)
             a(href="#").pagination__next: span
+
+
+
+mixin reviewsItem(person, isPreviewsConsist)
+    .reviews__item
+        .reviews__content
+
+            time.reviews__time.section__time(datetime="2023-09-08") 08.09.2023
+
+            ul.reviews__rating
+                li.reviews__star
+                li.reviews__star
+                li.reviews__star
+                li.reviews__star
+                li.reviews__star.reviews__star_disabled
+
+            p.reviews__person= person
+            
+            p.reviews__text.section__text Отличное летнее платье с подкладкой, мне очень понравилось, но мне не подошло. покупала на 52 52ой, мало, на 48 или на 50 будет отлично.
+
+            if isPreviewsConsist
+                .reviews__previews
+                    +pictureSize('reviews/review_preview_1','jpg','x2',90,120)
+                    +pictureSize('reviews/review_preview_2','jpg','x2',90,120)
+        
+        include ../blocks/_reply

@@ -5,6 +5,7 @@
     --color-gray: #464646;
     --color-gray-light: #b1b1b1;
     --color-gray-bg: #f6f6f6;
+    --color-gray-bg2: #f0f0f0;
     --color-orange: #ffb648;
     --color-light: #e4e2e2;
     --color-blue: #0d78ff;
@@ -15,6 +16,10 @@
 
     // fonts
     --font-main: "Inter", sans-serif;
+
+    // border-radius
+
+    --radius: 5px;
 }
 
 $font_main: var(--font-main, "Inter", sans-serif);

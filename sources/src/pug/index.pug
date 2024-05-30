@@ -6,3 +6,19 @@ block head
 block page
 
 
+    section.section.reviews
+        .container
+            h2.section__title.reviews__title Отзывы о товаре (#[span 2])
+
+            .reviews__wrapper
+
+                .reviews__list
+
+                    +reviewsItem('Балашова Татьяна', 'previewsConsist')
+
+                    +reviewsItem('Иванова Елена', false)
+
+
+                .reviews__form
+
+

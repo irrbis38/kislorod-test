@@ -45,12 +45,11 @@ body {
 .container {
     width: 100%;
     max-width: 1500px;
-    // min-width: 320px;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: 0 15px;
 
-    @include xxs {
-        padding: 0 15px;
+    @include min_sm {
+        padding: 0 30px;
     }
 }
 

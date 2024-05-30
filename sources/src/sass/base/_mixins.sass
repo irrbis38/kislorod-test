@@ -30,6 +30,32 @@
     @content
 
 
+@mixin min_xs
+    @media (min-width: 576px)
+        @content
+
+
+@mixin min_sm
+    @media (min-width: 768px)
+        @content
+
+
+@mixin min_md
+    @media (min-width: 992px)
+        @content
+
+
+@mixin min_lg
+    @media (min-width: 1200px)
+        @content
+
+
+@mixin min_xl
+    @media (min-width: 1600px)
+        @content
+
+
+
 @mixin hidescrollbar()
   // hide scrollbar in Firefox
   scrollbar-width: none

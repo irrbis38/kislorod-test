@@ -1,3 +1,4 @@
-module.exports = [ // comma separated
-    // "./src/libs/jquery/dist/jquery.min.js"
+module.exports = [
+    // comma separated
+    "./src/libs/mask/maska.umd.js",
 ];

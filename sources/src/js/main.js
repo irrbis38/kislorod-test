@@ -115,32 +115,46 @@ var initInputCheck = (formElements) => {
     });
 };
 
-var doFormValidation = (formElements, emailInputs) => {
+var doFormValidation = (formElements, emailInputs, phoneInputs) => {
     var requiredElements = formElements.filter((el) => {
         return el.required;
     });
 
-    requiredElements.forEach((el) => {
-        if (!el.value) {
-            el.classList.add("error");
-        } else {
-            el.classList.remove("error");
-        }
-    });
+    requiredElements.length > 0 &&
+        requiredElements.forEach((el) => {
+            if (!el.value) {
+                el.classList.add("error");
+            } else {
+                el.classList.remove("error");
+            }
+        });
 
-    emailInputs.forEach((el) => {
-        // return if empty
-        if (!el.value) return;
+    emailInputs.lenght > 0 &&
+        emailInputs.forEach((el) => {
+            // return if empty
+            if (!el.value) return;
 
-        var re =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            var re =
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!re.test(String(el.value).toLowerCase())) {
-            el.classList.add("error");
-        } else {
-            el.classList.remove("error");
-        }
-    });
+            if (!re.test(String(el.value).toLowerCase())) {
+                el.classList.add("error");
+            } else {
+                el.classList.remove("error");
+            }
+        });
+
+    phoneInputs.length > 0 &&
+        phoneInputs.forEach((el) => {
+            // return if empty
+            if (!el.value) return;
+
+            if (el.value.length === 16) {
+                el.classList.remove("error");
+            } else {
+                el.classList.add("error");
+            }
+        });
 };
 
 var checkErorrs = (formElements) => {
@@ -165,18 +179,26 @@ var initFormValidation = () => {
 
     var emailInputs = formElements.filter((el) => el.type === "email");
 
+    var phoneInputs = formElements.filter((el) => el.name === "user_phone");
+
+    if (phoneInputs.length > 0) {
+        // init mask inputs
+        const { MaskInput } = Maska;
+        const maskIinput = new MaskInput("[data-maska]");
+    }
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        doFormValidation(formElements, emailInputs);
+        doFormValidation(formElements, emailInputs, phoneInputs);
 
         var checkResult = checkErorrs(formElements);
 
-        if (!checkResult) return;
+        if (checkResult) {
+            form.submit();
 
-        form.submit();
-
-        feedback.classList.add("success");
+            feedback.classList.add("success");
+        }
     });
 };
 

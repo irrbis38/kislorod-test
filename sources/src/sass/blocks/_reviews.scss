@@ -83,6 +83,26 @@
 
 .reviews__feedback {
     @include min_md {
+        min-height: 796px;
         flex: 0 0 460px;
+    }
+}
+
+.feedback__confirm {
+    display: none;
+}
+
+.feedback.success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .feedback__form {
+        display: none;
+    }
+
+    .feedback__confirm {
+        display: flex;
     }
 }

@@ -48,7 +48,6 @@ block page
 
 
                         .feedback__file.file 
-                            //- .file-non-empty
 
                             label.file__label
 
@@ -58,14 +57,14 @@ block page
 
                                 span.file__hint Загрузить фотографии. Максимальный вес 10 мегабайт.#[br]Расширение jpeg, png
 
-                            //- .file__img
-                            //-     img(src="./images/reviews/review_preview_1.jpg", alt="")
-                            //-     button.file__remove(type="button" aria-label="Удалить фото")
-
 
                         button.feedback__submit.btn.btn__blue(type="submit") Отправить
 
-                    .feedback__confirm
+                    .feedback__confirm.confirm 
+                        h3.confirm__title Спасибо за  ваш отзыв!
+                        p.confirm__msg Ваш отзыв будет опубликован сразу после того, как его проверят наши сотрудники.
+
+
 
 
 

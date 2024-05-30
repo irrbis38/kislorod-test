@@ -29,3 +29,35 @@
     line-height: 150%;
     color: var(--color-gray, #464646);
 }
+
+// buttons
+
+.btn {
+    display: block;
+    width: 100%;
+    min-height: 42px;
+    padding: 8px 30px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    border-radius: var(--radius, 5px);
+    border: none;
+    appearance: none;
+    outline: none;
+    transition: background-color 0.2s ease-out;
+}
+
+.btn__blue {
+    color: var(--color-white, #fff);
+    background-color: var(--color-blue, #0d78ff);
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--color-blue-hover, #0b68dd);
+        }
+    }
+
+    &:active {
+        background-color: var(--color-blue-active, #0358c3);
+    }
+}

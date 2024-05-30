@@ -129,7 +129,7 @@ var doFormValidation = (formElements, emailInputs, phoneInputs) => {
             }
         });
 
-    emailInputs.lenght > 0 &&
+    emailInputs.length > 0 &&
         emailInputs.forEach((el) => {
             // return if empty
             if (!el.value) return;

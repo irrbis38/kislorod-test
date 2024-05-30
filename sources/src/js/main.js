@@ -25,8 +25,8 @@ var handleRemoveImage = (e) => {
 var handleAddFiles = (files, label) => {
     if (!files.length) return;
 
-    var queuedImagesArray = Array.from(files).filter((f) =>
-        f.type.startsWith("image/")
+    var queuedImagesArray = Array.from(files).filter(
+        (f) => f.type.startsWith("image/") && f.size < 1 * 1024 * 1024
     );
 
     queuedImagesArray.forEach((image) => {
@@ -195,7 +195,7 @@ var initFormValidation = () => {
         var checkResult = checkErorrs(formElements);
 
         if (checkResult) {
-            form.submit();
+            form.reset();
 
             feedback.classList.add("success");
         }

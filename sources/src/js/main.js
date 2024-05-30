@@ -105,7 +105,83 @@ var initFileReadByDrop = () => {
     drop_container.addEventListener("drop", handleDrop);
 };
 
+// ========== FORM VALIDATION
+
+var initInputCheck = (formElements) => {
+    formElements.forEach((el) => {
+        el.addEventListener("input", () => {
+            el.classList.remove("error");
+        });
+    });
+};
+
+var doFormValidation = (formElements, emailInputs) => {
+    var requiredElements = formElements.filter((el) => {
+        return el.required;
+    });
+
+    requiredElements.forEach((el) => {
+        if (!el.value) {
+            el.classList.add("error");
+        } else {
+            el.classList.remove("error");
+        }
+    });
+
+    emailInputs.forEach((el) => {
+        // return if empty
+        if (!el.value) return;
+
+        var re =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (!re.test(String(el.value).toLowerCase())) {
+            el.classList.add("error");
+        } else {
+            el.classList.remove("error");
+        }
+    });
+};
+
+var checkErorrs = (formElements) => {
+    var isErrorConsist = formElements.some((el) =>
+        el.classList.contains("error")
+    );
+    return !isErrorConsist;
+};
+
+var initFormValidation = () => {
+    var feedback = document.querySelector(".feedback");
+    var form = document.querySelector(".feedback__form");
+
+    if (!feedback || !form) return;
+
+    var inputs = form.querySelectorAll(".feedback__input");
+    var t_areas = form.querySelectorAll(".feedback__textarea");
+
+    var formElements = [...inputs, ...t_areas];
+
+    formElements.length > 0 && initInputCheck(formElements);
+
+    var emailInputs = formElements.filter((el) => el.type === "email");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        doFormValidation(formElements, emailInputs);
+
+        var checkResult = checkErorrs(formElements);
+
+        if (!checkResult) return;
+
+        form.submit();
+
+        feedback.classList.add("success");
+    });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     initFileRead();
     initFileReadByDrop();
+    initFormValidation();
 });
